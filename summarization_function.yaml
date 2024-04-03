@@ -1,0 +1,22 @@
+name: GenerateLinkedInPost
+template: |
+    You will be provided with a presentation text.
+    Your task is to summarize the text into a nice and concise LinkedIn post.
+    Don't include any unnecessary information.
+    Make it catchy.
+    
+    The LinkedIn post should be around 50-100 words and should include top 3 key points from the presentation text.
+
+    Here is the presentation text:
+    {{$presentation_text}}  
+template_format: semantic-kernel
+description: A function that generates a LinkedIn post based on presentation text.
+input_variables:
+    - name: presentation_text
+      description: The presentation text.
+      is_required: true
+output_variable:
+    description: The generated LinkedIn post.
+execution_settings:
+    default:
+        temperature: 0.6

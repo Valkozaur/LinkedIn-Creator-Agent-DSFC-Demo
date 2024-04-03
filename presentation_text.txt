@@ -1,0 +1,66 @@
+3. Semantic Kernel (8 minutes)
+Introduction
+Semantic Kernel is an open source SDK developed and supported by Microsoft and open-source community.
+The SDK provides you with the orchestration tools needed to develop AI powered agents in the language of your choice. It is parallelly being developed in three programming languages which are C#, Python and Java and it has already achieved V1 in all languages.
+The Kernel is the center of everything. 
+The tool is in the center of the AI stack, it allows not only seamless communication with LLMs by different providers but also it enhances the power of Large Language Models by providing them the ability to execute native code blocks or recall from a memory store 
+Foundations: Plugins and Connectors:
+Plugins and Connectors are the bread and butter of Semantic Kernel.
+Connectors are how you can connect to different services like different AI models and databases intended to serve as a long-term memory to our LLM application. Using Connectors you can define that for LLM you can use OpenAI GPT model, Azure GPT model or an Open-Source model from Hugging Face.
+Plugins on the other side act as tool boxes, which you define and the LLM can use. 
+In this tool boxes you can create two types of functions: 
+Native Code functions: Functions defined with native code which execute an action.
+Templated Prompt functions: Functions which are defined with a templated prompt, which will later be filed with values coming dynamically from your application runtime logic. 
+
+Applications: Planners
+When we have a problem which we want to resolve using AI agents build with Semantic Kernel we have two ways of doing so. 
+The first one is to orchestrate functions with code, which can be helpful and serve the purpose with some cases, the drawbacks of it are  that some tasks can be tedious to operate, as well as you can not foresee all the possible ways a user might want to use your agent. 
+The second way is to leverage the power of AI and ask it to define plans for achieving a user request or a goal.
+The first step is by defining Plugins containing functions with well-defined description of their Purpose, Input and Output than we can ask AI to mix-and-match them in order to achieve the goal.
+This allows your agent to achieve things that were not hardcoded in your application logic but also resolve problems that the developer never have planned. 
+This is a functionality currently is reliable only with the user’s overlooking the AI, but with models getting better over time you will never know.
+Future Directions: Agents and Multi-Agent architecture 
+Semantic Kernel is actively developing in the ever changing world of AI. 
+With new models and patterns coming out every day it’s hard to keep up with the trend, but Microsoft and the Open-source community do it.
+Now their focus is towards the Agent and Multi-agent architecture patterns.
+
+What is Agent?
+An agent is a combination of the previous concepts we discussed combined together.
+An agent can have role description, both short-term and long-term memory and a set of tools or so called plugins. 
+Leveraging all these tools together can create a specialized virtual assistant capable of achieving a task.
+A financial analysts agent that can quickly find specific information in company reports or answer detailed questions by breaking them down into simpler parts. Think of them as smart helpers that can understand and carry out  requests.
+OpenAI GPTs
+OpenAI has introduced agents in their main product ChatGPT. Their Agent implementation is GPTs. 
+With GPTs you can create a highly specialized LLM agent which can help you in your specific task. 
+They also created the OpenAI Assistants API which exposes the GPTs functionality through an API. 
+Semantic Kernel Agents
+Semantic Kernel’s team is working on an implementation of the Agent pattern.
+They currently have an experimental package which allows you to connect to OpenAI Assistants API to create an use agents in your application but their goal for the future is to create an implement an abstraction which will allow you to create Agents with any model. 
+Drawback of agents
+Fixed Features: Monolithic AI assistants can’t easily learn new tricks. They’re like Swiss Army knives with predetermined tools—no room for extras.
+Precise Instructions: To get things done, users need to speak their language precisely. It’s like telling your Swiss Army knife, “Slice this apple, but not too thin!”
+Overwhelmed Choices: Choosing which services to use can be overwhelming. It’s like asking your Swiss Army knife to pick the right tool for every task—it might not always choose what you’d prefer!
+
+This is where another concept investigated by Semantic Kernel team can work out.  
+Micro-Agents Architecture
+Inspired from the Microservice architecture pattern for developing software solutions Semantic Kernel team has started investigating the possibility of creating a Micro-Agent architecture. 
+Within an application you can have multiple small micro-agents specializing in a single task. 
+They would not have any information for any other micro-agent in the architecture. 
+Than have a single Manager agent aware of all micro-agents their descriptions, specifications and possibilities. This Manager agent will have the sole task of getting the user request and creating a plan combing the possibilities of all agents, than providing this plan to Semantic Kernel to start issuing the commands to the micro-agents. 
+This complex architecture can provide us with the benefits similar to what Microservice architecture provide but translated to Ai. 
+Benefits: 
+-	Choose the best model for each Micro-Agent.
+-	Chunk the work in small pieces.
+-	Different teams can work on different micro-agents.
+Drawbacks:
+-	Complexity
+-	Single point of failure.
+
+Semantic Kernel is an interesting and powerful tool which is under active development and it offers a nice alternative to LangChain. 
+Malaga
+The pilot version of MALAGA had been developed nearly 5 months ago. What we aimed when we developed it was to implement the RAG pattern using the LLM to answer a series of questions. 
+The pilot version intrigued us and our shareholders, but one thing was missing. Flexibility. 
+Therefore, the past months we’ve been planning on the side what should our next steps be. 
+The next step for MALAGA is creating a Copilot Agent, that will be enhanced with the RAG pattern, dynamic planning and plugins. 
+This step is currently in development but as it is not ready for showcasing yet I will give you a short demo of our current application which is at the RAG stage.
+

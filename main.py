@@ -1,68 +1,53 @@
 import asyncio
+
 import semantic_kernel as sk
-from semantic_kernel.connectors.ai.open_ai import OpenAIChatCompletion, AzureChatCompletion
+import semantic_kernel.connectors.ai.open_ai as sk_oai
+from semantic_kernel.utils.settings import azure_openai_settings_from_dot_env_as_dict
 
-kernel = sk.Kernel()
+from DallePlugin import Dalle3
 
-# Prepare OpenAI service using credentials stored in the `.env` file
-api_key, org_id = sk.openai_settings_from_dot_env()
-service_id="chat-gpt"
-kernel.add_service(
-    OpenAIChatCompletion(
-        service_id=service_id,
-        ai_model_id="gpt-3.5-turbo",
-        api_key=api_key,
-        org_id=org_id
-    )
-)
 
-# Alternative using Azure:
-# deployment, api_key, endpoint = sk.azure_openai_settings_from_dot_env()
-# kernel.add_service(
-#   AzureChatCompletion(
-#       service_id="dv",
-#       deployment_name=deployment,
-#       base_url=endpoint,
-#       api_key=api_key
-#   )
-# )
+def read_file(file_name):
+    with open(file_name, mode='r', encoding='utf8') as file:
+        data = file.read()
+    return data
 
-# Define the request settings
-req_settings = kernel.get_service(service_id).get_prompt_execution_settings_class()(service_id=service_id)
-req_settings.max_tokens = 2000
-req_settings.temperature = 0.7
-req_settings.top_p = 0.8
-
-prompt = """
-1) A robot may not injure a human being or, through inaction,
-allow a human being to come to harm.
-
-2) A robot must obey orders given it by human beings except where
-such orders would conflict with the First Law.
-
-3) A robot must protect its own existence as long as such protection
-does not conflict with the First or Second Law.
-
-Give me the TLDR in exactly 5 words."""
-
-prompt_template_config = sk.PromptTemplateConfig(
-    template=prompt,
-    name="tldr",
-    template_format="semantic-kernel",
-    execution_settings=req_settings,
-)
-
-function = kernel.create_function_from_prompt(
-    function_name="tldr_function",
-    plugin_name="tldr_plugin",
-    prompt_template_config=prompt_template_config,
-)
-
-# Run your prompt
-# Note: functions are run asynchronously
 async def main():
-    result = await kernel.invoke(function)
-    print(result) # => Robots must not harm humans.
+    system_message = """
+    You are a chatbot which will help with creating posts to LinkedIn.
+    """
+    
+    kernel = sk.Kernel()
+
+    service_id = "chat-gpt"
+    chat_service = sk_oai.AzureChatCompletion(
+        service_id=service_id, **azure_openai_settings_from_dot_env_as_dict(include_api_version=True)
+    )
+
+    kernel.add_service(chat_service)
+
+    req_settings = kernel.get_prompt_execution_settings_from_service_id(service_id=service_id)
+    req_settings.max_tokens = 2000
+    req_settings.temperature = 0.7
+    req_settings.top_p = 0.8
+    req_settings.auto_invoke_kernel_functions = True    
+
+    presentation_text = read_file("presentation_text.txt")
+
+    summarization_function = kernel.create_function_from_yaml(read_file("summarization_function.yaml"), "LinkedInPlugin")
+    dalle3 = kernel.import_plugin_from_object(Dalle3(), "Dalle3")
+
+    summarization = await kernel.invoke(
+        functions=summarization_function, 
+        presentation_text=presentation_text)
+
+    animal_pic_url = await kernel.run_async(
+        dalle3['ImageFromPrompt'],
+        input_str=summarization
+    )
+
+    print(summarization)
+    print(animal_pic_url)
 
 if __name__ == "__main__":
     asyncio.run(main())
