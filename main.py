@@ -1,36 +1,34 @@
 import asyncio
 
+import ssl
 import semantic_kernel as sk
 import semantic_kernel.connectors.ai.open_ai as sk_oai
 from semantic_kernel.utils.settings import azure_openai_settings_from_dot_env_as_dict
+from semantic_kernel.connectors.ai.open_ai import (
+    OpenAIChatCompletion,
+)
 
 from DallePlugin import Dalle3
 
+ssl.SSLContext.verify_mode = ssl.VerifyMode.CERT_OPTIONAL
 
 def read_file(file_name):
     with open(file_name, mode='r', encoding='utf8') as file:
         data = file.read()
     return data
 
-async def main():
-    system_message = """
-    You are a chatbot which will help with creating posts to LinkedIn.
-    """
-    
+async def main():  
     kernel = sk.Kernel()
 
-    service_id = "chat-gpt"
-    chat_service = sk_oai.AzureChatCompletion(
-        service_id=service_id, **azure_openai_settings_from_dot_env_as_dict(include_api_version=True)
+    service_id = "gpt"
+    api_key, _ = sk.openai_settings_from_dot_env()
+    kernel.add_service(
+        OpenAIChatCompletion(
+            service_id=service_id,
+            ai_model_id="gpt-3.5-turbo-1106",
+            api_key=api_key,
+        ),
     )
-
-    kernel.add_service(chat_service)
-
-    req_settings = kernel.get_prompt_execution_settings_from_service_id(service_id=service_id)
-    req_settings.max_tokens = 2000
-    req_settings.temperature = 0.7
-    req_settings.top_p = 0.8
-    req_settings.auto_invoke_kernel_functions = True    
 
     presentation_text = read_file("presentation_text.txt")
 
@@ -41,13 +39,13 @@ async def main():
         functions=summarization_function, 
         presentation_text=presentation_text)
 
-    animal_pic_url = await kernel.run_async(
-        dalle3['ImageFromPrompt'],
-        input_str=summarization
-    )
+    # animal_pic_url = await kernel.invoke(
+    #     dalle3['ImageFromPrompt'],
+    #     input=summarization
+    # )
 
     print(summarization)
-    print(animal_pic_url)
+    # print(animal_pic_url)
 
 if __name__ == "__main__":
     asyncio.run(main())
