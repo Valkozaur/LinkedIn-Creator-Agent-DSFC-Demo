@@ -1,7 +1,6 @@
 import os
 import requests
 import json
-import shutil
 
 from typing_extensions import Annotated
 from semantic_kernel.functions.kernel_function_decorator import kernel_function
@@ -12,7 +11,7 @@ class LinkedInPlugin:
         name="LinkedInPlugin",
     )
 
-    def PostOnLinkedIn(
+    def UploadPostOnLinkedIn(
         self,
         postContent: Annotated[str, "Short post text content."],
         imageUrl: Annotated[str, "The image url to be added to the post."]

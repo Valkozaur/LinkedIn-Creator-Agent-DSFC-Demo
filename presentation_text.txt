@@ -11,7 +11,6 @@ Plugins on the other side act as tool boxes, which you define and the LLM can us
 In this tool boxes you can create two types of functions: 
 Native Code functions: Functions defined with native code which execute an action.
 Templated Prompt functions: Functions which are defined with a templated prompt, which will later be filed with values coming dynamically from your application runtime logic. 
-
 Applications: Planners
 When we have a problem which we want to resolve using AI agents build with Semantic Kernel we have two ways of doing so. 
 The first one is to orchestrate functions with code, which can be helpful and serve the purpose with some cases, the drawbacks of it are  that some tasks can be tedious to operate, as well as you can not foresee all the possible ways a user might want to use your agent. 
@@ -36,31 +35,3 @@ They also created the OpenAI Assistants API which exposes the GPTs functionality
 Semantic Kernel Agents
 Semantic Kernel’s team is working on an implementation of the Agent pattern.
 They currently have an experimental package which allows you to connect to OpenAI Assistants API to create an use agents in your application but their goal for the future is to create an implement an abstraction which will allow you to create Agents with any model. 
-Drawback of agents
-Fixed Features: Monolithic AI assistants can’t easily learn new tricks. They’re like Swiss Army knives with predetermined tools—no room for extras.
-Precise Instructions: To get things done, users need to speak their language precisely. It’s like telling your Swiss Army knife, “Slice this apple, but not too thin!”
-Overwhelmed Choices: Choosing which services to use can be overwhelming. It’s like asking your Swiss Army knife to pick the right tool for every task—it might not always choose what you’d prefer!
-
-This is where another concept investigated by Semantic Kernel team can work out.  
-Micro-Agents Architecture
-Inspired from the Microservice architecture pattern for developing software solutions Semantic Kernel team has started investigating the possibility of creating a Micro-Agent architecture. 
-Within an application you can have multiple small micro-agents specializing in a single task. 
-They would not have any information for any other micro-agent in the architecture. 
-Than have a single Manager agent aware of all micro-agents their descriptions, specifications and possibilities. This Manager agent will have the sole task of getting the user request and creating a plan combing the possibilities of all agents, than providing this plan to Semantic Kernel to start issuing the commands to the micro-agents. 
-This complex architecture can provide us with the benefits similar to what Microservice architecture provide but translated to Ai. 
-Benefits: 
--	Choose the best model for each Micro-Agent.
--	Chunk the work in small pieces.
--	Different teams can work on different micro-agents.
-Drawbacks:
--	Complexity
--	Single point of failure.
-
-Semantic Kernel is an interesting and powerful tool which is under active development and it offers a nice alternative to LangChain. 
-Malaga
-The pilot version of MALAGA had been developed nearly 5 months ago. What we aimed when we developed it was to implement the RAG pattern using the LLM to answer a series of questions. 
-The pilot version intrigued us and our shareholders, but one thing was missing. Flexibility. 
-Therefore, the past months we’ve been planning on the side what should our next steps be. 
-The next step for MALAGA is creating a Copilot Agent, that will be enhanced with the RAG pattern, dynamic planning and plugins. 
-This step is currently in development but as it is not ready for showcasing yet I will give you a short demo of our current application which is at the RAG stage.
-
