@@ -1,14 +1,21 @@
 name: GenerateLinkedInPost
 template: |
     You will be provided with a presentation text.
-    Your task is to summarize the text into a nice and concise LinkedIn post.
-    Don't include any unnecessary information.
-    Make it catchy.
+    Take out the main topic.
+    Create a LinkedIn post in which you share to my community what I will present.
+    Make it catchy and let the people know that they should not miss it.
+    The LinkedIn post should be around 25-50 words and should mention the main topic and hint three things they might learn from it.
+    Include relevant hashtags and emoticons.
     
-    The LinkedIn post should be around 50-100 words and should include top 3 key points from the presentation text.
-
-    Here is the presentation text:
-    {{$presentation_text}}  
+    ```data
+    Name of the conference is: Data Science in Finance Conference
+    Place of the conference is: Utrecht, Netherlands
+    Date is: 08-04-2024
+    ```
+    
+    ```text
+    {{$presentation_text}}
+    ```  
 template_format: semantic-kernel
 description: A function that generates a LinkedIn post based on presentation text.
 input_variables:

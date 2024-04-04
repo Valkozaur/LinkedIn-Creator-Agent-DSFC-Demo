@@ -1,0 +1,21 @@
+name: GeneratePromptForDalleForLinkedInPost
+template: |
+    You will be provided with linkedIn post text content.
+    Take out the main topic.
+    Create a prompt for DALLE to generate an image which will be posted with the post to LinkedIn.
+    Make sure to instruct DALLE to not include any text in the image.
+    
+    ```text
+    {{$linkedin_post_text}}
+    ```  
+template_format: semantic-kernel
+description: A function that generates a LinkedIn post based on presentation text.
+input_variables:
+    - name: linkedin_post_text
+      description: LinkedIn post text.
+      is_required: true
+output_variable:
+    description: Dalle Image generation prompt for the LinkedIn post.
+execution_settings:
+    default:
+        temperature: 0.6
