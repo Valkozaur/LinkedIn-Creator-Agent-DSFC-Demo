@@ -34,7 +34,7 @@ class Dalle3:
 
         imageContent = requests.get(image_url, stream=True)
         if imageContent.status_code == 200:
-            with open('temp_image.png', 'wb') as out_file:
+            with open("temp_image.png", "wb") as out_file:
                     shutil.copyfileobj(imageContent.raw, out_file)
 
         return image_url

@@ -21,12 +21,12 @@ class LinkedInPlugin:
         def initialize_image_upload(access_token, person_id) -> str:
             """Initializes an image upload on LinkedIn."""
 
-            url = 'https://api.linkedin.com/rest/images?action=initializeUpload'
+            url = "https://api.linkedin.com/rest/images?action=initializeUpload"
             headers = {
-                'LinkedIn-Version': '202304',
-                'X-Restli-Protocol-Version': '2.0.0',
-                'Content-Type': 'text/plain',
-                'Authorization': f'Bearer {access_token}'
+                "LinkedIn-Version": "202304",
+                "X-Restli-Protocol-Version": "2.0.0",
+                "Content-Type": "text/plain",
+                "Authorization": f"Bearer {access_token}"
             }
 
             data = {
@@ -44,11 +44,11 @@ class LinkedInPlugin:
         def upload_image(upload_url: str) -> str:
             """Downloads an image and uploads it to LinkedIn."""
             # Upload the image
-            with open('temp_image.png', 'rb') as image_file:
-                files = {'file': image_file}
+            with open("temp_image.png", "rb") as image_file:
+                files = {"file": image_file}
                 response = requests.put(upload_url, files=files)
             # Delete the temporary image file
-            os.remove('temp_image.png')
+            os.remove("temp_image.png")
             if response.status_code == 200:
                 return "Success: Image uploaded."
             else:
@@ -57,13 +57,13 @@ class LinkedInPlugin:
         def create_post(access_token: str, person_id: str, postContent: str, imageId: str) -> None:
             """Creates a post on LinkedIn."""
 
-            url = 'https://api.linkedin.com/rest/posts'
+            url = "https://api.linkedin.com/rest/posts"
 
             headers = {
-                'LinkedIn-Version': '202304',
-                'X-Restli-Protocol-Version': '2.0.0',
-                'Content-Type': 'text/plain',
-                'Authorization': f'Bearer {access_token}'
+                "LinkedIn-Version": "202304",
+                "X-Restli-Protocol-Version": "2.0.0",
+                "Content-Type": "text/plain",
+                "Authorization": f"Bearer {access_token}"
             }
 
             data = {

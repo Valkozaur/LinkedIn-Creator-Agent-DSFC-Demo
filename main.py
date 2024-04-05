@@ -16,7 +16,7 @@ ssl.SSLContext.verify_mode = ssl.VerifyMode.CERT_OPTIONAL
 
 def read_file(file_name, *args):
     full_file_path = os.path.join(*args, file_name)
-    with open(full_file_path, mode='r', encoding='utf8') as file:
+    with open(full_file_path, mode="r", encoding="utf8") as file:
         data = file.read()
     return data
 
