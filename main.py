@@ -1,5 +1,5 @@
 import asyncio
-
+import os
 import ssl
 import semantic_kernel as sk
 import semantic_kernel.connectors.ai.open_ai as sk_oai
@@ -14,15 +14,16 @@ from LinkedInPlugin import LinkedInPlugin
 
 ssl.SSLContext.verify_mode = ssl.VerifyMode.CERT_OPTIONAL
 
-def read_file(file_name):
-    with open(file_name, mode='r', encoding='utf8') as file:
+def read_file(file_name, *args):
+    full_file_path = os.path.join(*args, file_name)
+    with open(full_file_path, mode='r', encoding='utf8') as file:
         data = file.read()
     return data
 
 async def main():  
     kernel = sk.Kernel()
 
-    service_id = "gpt"
+    service_id = "planner"
     api_key, _ = sk.openai_settings_from_dot_env()
     kernel.add_service(
         OpenAIChatCompletion(
@@ -32,10 +33,10 @@ async def main():
         ),
     )
 
-    presentation_text = read_file("presentation_text.txt")
+    presentation_text = read_file("presentation_text.txt", "resources")
 
-    kernel.create_function_from_yaml(read_file("summarization_function.yaml"), "TextPrompt")
-    kernel.create_function_from_yaml(read_file("image_prompt_function.yaml"), "TextPrompt")
+    kernel.create_function_from_yaml(read_file("image_prompt_function.yaml", "prompts"), "TextPrompt")
+    kernel.create_function_from_yaml(read_file("summarization_function.yaml", "prompts"), "TextPrompt")
     kernel.import_plugin_from_object(LinkedInPlugin(), "LinkedInPlugin")
     kernel.import_plugin_from_object(Dalle3(), "Dalle3")
 
@@ -54,6 +55,8 @@ async def main():
     planner = SequentialPlanner(kernel, service_id)
 
     sequential_plan = await planner.create_plan(goal=question)
+
+    kernel.on_function_invoking = lambda function: print(f"Invoking function: {function.name}")
 
     for step in sequential_plan._steps:
         print(step.description, ":", step._state.__dict__)
