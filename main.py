@@ -1,6 +1,5 @@
 import asyncio
 import os
-import ssl
 import semantic_kernel as sk
 
 from semantic_kernel.connectors.ai.open_ai import (
@@ -11,8 +10,6 @@ from semantic_kernel.planners import SequentialPlanner
 
 from DallePlugin import Dalle3
 from LinkedInPlugin import LinkedInPlugin
-
-ssl.SSLContext.verify_mode = ssl.VerifyMode.CERT_OPTIONAL
 
 def read_file(file_name, *args):
     full_file_path = os.path.join(*args, file_name)
