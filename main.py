@@ -2,7 +2,7 @@ import asyncio
 import os
 import ssl
 import semantic_kernel as sk
-import semantic_kernel.connectors.ai.open_ai as sk_oai
+
 from semantic_kernel.connectors.ai.open_ai import (
     OpenAIChatCompletion,
 )
