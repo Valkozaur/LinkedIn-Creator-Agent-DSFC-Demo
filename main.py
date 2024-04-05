@@ -41,7 +41,7 @@ async def main():
     Generate a post for LinkedIn based on the presentation text provided below. 
     Make sure to include text to the post.
     Make sure to include image to the text.
-    If you generate image with Dalle3 make sure to give it price prompt.
+    If you generate image with Dalle3 make sure to give it precise prompt.
     Make sure to create upload the post on LinkedIn.
 
     ```presentation-text
