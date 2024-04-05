@@ -3,14 +3,17 @@ template: |
     You will be provided with a presentation text.
     Take out the main topic.
     Create a LinkedIn post in which you share to my community what I will present.
+    The post is intended to promote the presentation.
     Make it catchy and let the people know that they should not miss it.
     The LinkedIn post should be around 25-50 words and should mention the main topic and hint three things they might learn from it.
     Include relevant hashtags and emoticons.
     
-    ```data
-    Name of the conference is: Data Science in Finance Conference
-    Place of the conference is: Utrecht, Netherlands
-    Date is: 08-04-2024
+    ```presentation-data
+    Conference Name: DATA SCIENCE IN FINANCE CONFERENCE
+    Conference Date: 09 April 2024
+    Presentation Title: Using Retrieval Augmentation Generation (RAG)
+    Presentation Time: 14:45 - 15:15
+    Presenters: David Mudler, Valentin Nikolov
     ```
     
     ```text
