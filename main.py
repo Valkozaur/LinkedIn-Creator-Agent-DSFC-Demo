@@ -53,8 +53,6 @@ async def main():
 
     sequential_plan = await planner.create_plan(goal=question)
 
-    kernel.on_function_invoking = lambda function: print(f"Invoking function: {function.name}")
-
     for step in sequential_plan._steps:
         print(step.description, ":", step._state.__dict__)
     
