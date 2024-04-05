@@ -40,7 +40,7 @@ async def main():
     question = f"""
     Generate a post for LinkedIn based on the presentation text provided below. 
     The post must highlight the key points of the presentation.
-    The post is intended to let people know about the presentation.
+    The post is intended to promote the presentation.
     Make sure to include text to the post.
     Make sure to include image to the text.
     If you generate image with Dalle3 make sure to give it price prompt.
