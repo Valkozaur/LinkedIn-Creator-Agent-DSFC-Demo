@@ -5,7 +5,8 @@ template: |
     Create a LinkedIn post in which you share to my community what I will present.
     The post is intended to promote the presentation.
     Make it catchy and let the people know that they should not miss it.
-    The LinkedIn post should be around 25-50 words and should mention the main topic and hint three things they might learn from it.
+    The post must include all the presentation details.
+    Than the post must contain a main body which should be up to 100 words and mention the main topic and hint three things they might learn from it.
     Include relevant hashtags and emoticons.
     
     ```presentation-data
