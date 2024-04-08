@@ -14,7 +14,7 @@ It creates a LinkedIn post based on a presentation script.
 
 ![image](https://github.com/Valkozaur/Presentation-demo/assets/58659526/ca0dfddd-9e45-4ea5-8e54-379c3c05a363)
 
-To run it's dependencies set up the .env secrets based on the example.
+To run it's dependencies set up the .env secrets based on the [example](env_example.txt).
 
 Install required packages running command
 ```
